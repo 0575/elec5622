@@ -28,11 +28,21 @@ int main()
 	key.data = "fruit";
 	key.size = sizeof("fruit");
 	data.data = "apple";
-	data.size = sizeof("apple");
+        data.size= sizeof("apple");
 
 	if ((ret = dbp->put(dbp, NULL, &key, &data, 0)) == 0)
 		printf("db: %s: key stored.\n", (char *)key.data);
 	else {
+		dbp->err(dbp, ret, "DB->put");
+		goto err;
+	}
+ 	key.data = "Li";
+	key.size = sizeof("Li");
+	data.data = "Ruoyang";
+	data.size = sizeof("Ruoyang");
+	if((ret = dbp->put(dbp,NULL, &key, &data, 0)) == 0)
+		printf("db: &s:key stored.\n",(char *)key.data);
+	else{
 		dbp->err(dbp, ret, "DB->put");
 		goto err;
 	}
